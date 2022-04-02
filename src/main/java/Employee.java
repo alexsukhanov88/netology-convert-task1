@@ -16,4 +16,10 @@ public class Employee {
         this.country = country;
         this.age = age;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Employee emp = (Employee) obj;
+        return emp.id == this.id;
+    }
 }
