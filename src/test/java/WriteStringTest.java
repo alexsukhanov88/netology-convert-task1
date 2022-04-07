@@ -1,10 +1,9 @@
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Assert;
+import org.junit.jupiter.api.*;
 
 import java.io.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WriteStringTest {
 
@@ -12,13 +11,11 @@ public class WriteStringTest {
     private String writeString;
     private String fileString;
 
-    @Before
-    public void initTest() {
-        writeString = "[{\"id\":1,\"firstName\":\"John\",\"lastName\":\"Smith\",\"country\":\"USA\",\"age\":25}]";
-    }
-
     @Test
     public void write_sring_to_file_success() {
+
+        writeString = "[{\"id\":1,\"firstName\":\"John\",\"lastName\":\"Smith\",\"country\":\"USA\",\"age\":25}]";
+
         converter.writeString(writeString, "target/writeFile.csv");
         File writeFile = new File("target/writeFile.csv");
         try (BufferedReader reader = new BufferedReader(new FileReader (writeFile))) {
@@ -26,14 +23,9 @@ public class WriteStringTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(writeFile.exists());
-        Assert.assertEquals(writeString,fileString);
-    }
+        assertTrue(writeFile.exists());
+        assertEquals(writeString,fileString);
 
-    @After
-    public void afterTest() {
-        File writeFile = new File("target/writeFile.csv");
         writeFile.delete();
     }
-
 }
